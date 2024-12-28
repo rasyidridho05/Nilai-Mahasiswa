@@ -7,11 +7,11 @@ public class nilai {
         Scanner Input = new Scanner(System.in);
         ArrayList<String> Name = new ArrayList<String>();
         ArrayList<Integer> Nilai = new ArrayList<Integer>();
-        int confirm, opt;
-        String tambah;
+        int confirm, opt, editOpt;
+        String tambah, edit;
 
         do {
-            System.out.println("====================");
+            // System.out.println("====================");
             System.out.println("Option : \n1. Kelola Data Mahasiswa \n2. Stop");
             System.out.print("Pilihan Anda: ");
             confirm = Input.nextInt();
@@ -20,8 +20,8 @@ public class nilai {
             if (confirm == 1) {
                 System.out.println("1. List Mahasiswa");
                 System.out.println("2. Add new Mahasiswa");
-                System.out.println("3. Edit nilai Mahasiswa");
-                System.out.println("4. Remove nilai Mahasiswa");
+                System.out.println("3. Edit Mahasiswa");
+                System.out.println("4. Remove Mahasiswa");
 
                 System.out.print("Pilihan Anda: ");
                 opt = Input.nextInt();
@@ -38,7 +38,10 @@ public class nilai {
                         System.out.println("====================");
                         break;
                     case 3:
-                        edit();
+                        edit = edit(Input, Name, Nilai);
+                        System.out.println("====================");
+                        System.out.println(edit);
+                        System.out.println("====================");
                         break;
                     case 4:
                         remove();
@@ -48,7 +51,7 @@ public class nilai {
                 }
 
             } else {
-                System.out.println("Option not listed");
+                System.out.println("Program Stopped");
             }
 
         } while (confirm != 2);
@@ -68,7 +71,44 @@ public class nilai {
         return "Data berhasil ditambahkan";
     }
 
-    static String edit() {
+    static String edit(Scanner input, ArrayList<String> nama, ArrayList<Integer> nilai) {
+        String namaEdit;
+        int namaIndex, editOpt;
+        System.out.println("1. Edit nama Mahasiswa");
+        System.out.println("2. Edit nilai Mahasiswa");
+        System.out.print("Pilihan Anda: ");
+        editOpt = input.nextInt();
+        input.nextLine();
+
+        switch (editOpt) {
+            case 1:
+                System.out.print("Masukkan Nama Mahasiswa : ");
+                namaEdit = input.nextLine();
+                namaIndex = nama.indexOf(namaEdit);
+                if (namaIndex != -1) {
+                    System.out.print("Masukkan Nama Baru Mahasiswa : ");
+                    String namaBaru = input.nextLine();
+                    nama.set(namaIndex, namaBaru);
+                    return "Data Nama berhasil diedit";
+                } else {
+                    return "Data Mahasiswa Tidak Ditemukan";
+                }
+            case 2:
+                System.out.print("Masukkan Nama Mahasiswa : ");
+                namaEdit = input.nextLine();
+                namaIndex = nama.indexOf(namaEdit);
+                if (namaIndex != -1) {
+                    System.out.print("Masukkan Nilai Baru Mahasiswa : ");
+                    int nilaiBaru = input.nextInt();
+                    nilai.set(namaIndex, nilaiBaru);
+                    return "Data Nilai berhasil diedit";
+                } else {
+                    return "Data Mahasiswa Tidak Ditemukan";
+                }
+            default:
+                break;
+        }
+
         return "";
     }
 
